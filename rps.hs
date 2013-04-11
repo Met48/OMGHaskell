@@ -1,4 +1,5 @@
 import Control.Applicative
+import Data.Char
 
 data Hand = Rock | Paper | Scissors deriving (Show, Eq, Read)
 
@@ -19,9 +20,15 @@ getResult hand1 hand2 = do
         LT -> "Player two wins"
         EQ -> "Tie"
 
+readHand :: String -> Hand
+readHand (x:_) = case toLower x of
+    'r' -> Rock
+    'p' -> Paper
+    's' -> Scissors
+
 getInput :: IO Hand
 getInput = do
     putStrLn "Enter Rock Paper or Scissors:"
-    getLine >>= return . read
+    getLine >>= return . readHand
 
 main = getResult <$> getInput <*> getInput >>= putStrLn
