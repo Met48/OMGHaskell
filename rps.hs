@@ -6,7 +6,9 @@ instance Ord Hand where
     Rock <= Paper = True
     Paper <= Scissors = True
     Scissors <= Rock = True
-    a <= b = not $ b <= a
+    a <= b
+        | a == b = True
+        | otherwise = not $ b <= a
 
 getResult :: Hand -> Hand -> String
 getResult hand1 hand2 = do
